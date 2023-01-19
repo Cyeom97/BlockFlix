@@ -1,9 +1,9 @@
 const express = require('express')
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
-import http from 'http'
-import mongoose from 'mongoose'
-import 'dotenv/config'
+const cookieParser = require('cookie-parser')
+const PORT = process.env.PORT || 3001
+const cors = require('cors')
+const db = require('./db')
+const http = require('http')
 
 const app = express()
 
@@ -12,4 +12,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Express server listening on port: ${PORT}`)
+})
