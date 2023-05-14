@@ -2,9 +2,9 @@ import express from 'express'
 import { body } from 'express-validator'
 import favoriteController from '../controllers/favorite.controller.js'
 import userController from '../controllers/user.controller.js'
-import request from '../handlers/request.js'
-import userModel from '../models/userModels.js'
-import token from '../middleware/token.js'
+import requestHandler from '../handlers/request.handler.js'
+import userModel from '../models/user.model.js'
+import tokenMiddlerware from '../middleware/token.middlerware.js'
 
 const router = express.Router()
 
@@ -38,7 +38,7 @@ router.post(
     .withMessage('displayName is required')
     .isLength({ min: 8 })
     .withMessage('Display name must be at least 8 characters long'),
-  request.validate,
+  requestHandler.validate,
   userController.signup
 )
 
@@ -47,51 +47,55 @@ router.post(
   body('username')
     .exists()
     .withMessage('Username is required')
-    .isLength({ min: 3 })
-    .withMessage('Username must be at least 3 characters long'),
+    .isLength({ min: 8 })
+    .withMessage('Username must be at least 8 characters long'),
   body('password')
-    .isLength({ min: 4 })
+    .isLength({ min: 8 })
     .exists()
     .withMessage('Password is required')
-    .withMessage('Password must be at least 4 characters long'),
-  request.validate,
+    .withMessage('Password must be at least 8 characters long'),
+  requestHandler.validate,
   userController.signin
 )
 
 router.put(
   '/update-password',
-  token.auth,
+  tokenMiddlerware.auth,
   body('password')
     .exists()
     .withMessage('Password is required')
-    .isLength({ min: 4 })
-    .withMessage('Password must be at least 4 characters long'),
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long'),
   body('newPassword')
     .exists()
     .withMessage('New password is required')
-    .isLength({ min: 4 })
-    .withMessage('New password must be at least 4 characters long'),
+    .isLength({ min: 8 })
+    .withMessage('New password must be at least 8 characters long'),
   body('confirmNewPassword')
     .exists()
     .withMessage('Confirm new password is required')
-    .isLength({ min: 4 })
-    .withMessage('Confirm new password must be at least 4 characters long')
+    .isLength({ min: 8 })
+    .withMessage('Confirm new password must be at least 8 characters long')
     .custom((value, { req }) => {
       if (value !== req.body.newPassword)
         throw new Error('Passwords must match')
       return true
     }),
-  request.validate,
+  requestHandler.validate,
   userController.updatePassword
 )
 
-router.get('/info', token.auth, userController.getInfo)
+router.get('/info', tokenMiddlerware.auth, userController.getInfo)
 
-router.get('/favorites', token.auth, favoriteController.getFavoritesOfUser)
+router.get(
+  '/favorites',
+  tokenMiddlerware.auth,
+  favoriteController.getFavoritesOfUser
+)
 
 router.post(
   '/favorites',
-  token.auth,
+  tokenMiddlerware.auth,
   body('mediaType')
     .exists()
     .withMessage('mediaType is required')
@@ -110,7 +114,7 @@ router.post(
 
 router.delete(
   '/favorites/:favoriteId',
-  token.auth,
+  tokenMiddlerware.auth,
   favoriteController.removeFavorite
 )
 
