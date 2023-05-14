@@ -109,6 +109,7 @@ router.post(
   body('mediaTitle').exists().withMessage('mediaTitle is required'),
   body('mediaPoster').exists().withMessage('mediaPoster is required'),
   body('mediaRating').exists().withMessage('mediaRating is required'),
+  requestHandler.validate,
   favoriteController.addFavorite
 )
 
