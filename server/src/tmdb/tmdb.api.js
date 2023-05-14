@@ -1,4 +1,4 @@
-import axiosClient from '../axios.client.js'
+import axiosClient from '../axios/axios.client.js'
 import tmdbEndpoints from './tmdb.endpoints.js'
 
 const tmdbApi = () => {
