@@ -1,5 +1,5 @@
 const baseUrl = process.env.TMDB_BASE_URL
-const key = process.env.TMDB_API_KEY
+const key = process.env.TMDB_KEY
 
 const getUrl = (endpoint, params) => {
   const qs = new URLSearchParams(params)

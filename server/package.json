@@ -1,11 +1,12 @@
 {
   "name": "blockflix",
+  "type": "module",
   "version": "1.0.0",
   "description": "By: Christopher Yeom",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon index.js",
     "dev": "nodemon server.js",
     "build": "cd client && rm -rf build && npm install && npm run build"
   },
