@@ -1,9 +1,9 @@
-import responseHandler from '../handlers/response.js'
+import responseHandler from '../handlers/response.handler.js'
 import tmdbApi from '../tmdb/tmdb.api.js'
-import userModel from '../models/userModels.js'
-import favoriteModels from '../models/favoriteModels.js'
-import reviewModels from '../models/reviewModels.js'
-import tokenMiddleware from '../middlewares/token.js'
+import userModel from '../models/user.model.js'
+import favoriteModels from '../models/favorite.model.js'
+import reviewModels from '../models/review.model.js'
+import tokenMiddleware from '../middlewares/token.middlerware.js'
 
 const getList = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
-import userModel from '../models/userModels.js'
+import userModel from '../models/user.model.js'
 import jsonwebtoken from 'jsonwebtoken'
-import responseHandler from '../handlers/response.js'
+import responseHandler from '../handlers/response.handler.js'
 
 const signup = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ const signup = async (req, res) => {
 
     const token = jsonwebtoken.sign(
       { data: user.id },
-      process.env.SECRET_TOKEN,
+      process.env.TOKEN_SECRET,
       { expiresIn: '24h' }
     )
 
@@ -49,7 +49,7 @@ const signin = async (req, res) => {
 
     const token = jsonwebtoken.sign(
       { data: user.id },
-      process.env.SECRET_TOKEN,
+      process.env.TOKEN_SECRET,
       { expiresIn: '24h' }
     )
 

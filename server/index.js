@@ -1,7 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-const db = require('./db/index.js')
 import http from 'http'
 import mongoose from 'mongoose'
 import 'dotenv/config.js'
