@@ -23,7 +23,7 @@ const reviewApi = {
   },
   remove: async ({ reviewId }) => {
     try {
-      const response = await privateClient.post(
+      const response = await privateClient.delete(
         reviewEndpoint.remove({ reviewId })
       )
       return { response }
