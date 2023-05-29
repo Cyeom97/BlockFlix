@@ -7,7 +7,7 @@ export const themeModes = {
 }
 
 const themeConfigs = {
-  custome: ({ mode }) => {
+  custom: ({ mode }) => {
     const customPalette =
       mode === themeModes.dark
         ? {
