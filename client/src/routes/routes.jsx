@@ -6,7 +6,7 @@ import MediaList from '../pages/MediaList';
 import MediaSearch from '../pages/MediaSearch';
 import PasswordUpdate from '../pages/PasswordUpdate';
 import ReviewList from '../pages/ReviewList'
-import ProtectedPage from '../components/ProtectedPage';
+import ProtectedPage from '../components/common/ProtectedPage';
 
 export const routesGen = {
     home: '/',
@@ -61,5 +61,15 @@ const routes = [
             </ProtectedPage>
         ),
         state: 'reviews'
+    },
+    {
+        path: '/:mediaType',
+        element: <MediaList />
+    },
+    {
+        path: '/:mediaType/:mediaId',
+        element: <MediaDetail />
     }
 ]
+
+export default routes;

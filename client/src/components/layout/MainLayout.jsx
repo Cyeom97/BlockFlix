@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { OutLet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
     return (
@@ -9,7 +9,7 @@ const MainLayout = () => {
                 flexGrow={1}
                 overflow='hidden'
                 minHeight='100vh'>
-                    <OutLet />
+                    <Outlet />
 
                 </Box>
             </Box>
