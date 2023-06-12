@@ -34,7 +34,6 @@ const main = [
 ]
 
 const user = [
-  ,
   {
     display: 'favorites',
     path: '/favorites',
