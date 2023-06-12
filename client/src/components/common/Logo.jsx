@@ -1,0 +1,14 @@
+import { Typography, useTheme } from "@material-ui/core";
+import React from "react";
+
+const Logo = () => {
+    const theme = useTheme();
+
+    return (
+        <Typography fontWeight='700' fontSize='1.7rem'>
+            Block<span style={{ color: theme.palette.primary.main }}>Flix</span>
+        </Typography>
+    )
+}
+
+export default Logo;
