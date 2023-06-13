@@ -7,7 +7,7 @@ import { cloneElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import menuConfigs from '../../configs/menu.configs';
 import { themeModes } from '../../configs/theme.configs';
-import { setAuthModalOpen } from '../../redux/features/authModelSlice';
+import { setAuthModelOpen } from '../../redux/features/authModelSlice';
 import { setThemeMode } from '../../redux/features/themeModeSlice';
 import Logo from './Logo';
 import UserMenu from './UserMenu';
@@ -86,8 +86,16 @@ const Topbar = () => {
                                 {themeMode === themeModes.light && <WbSunnyOutlinedIcon/>}
                             </IconButton>
                         </Box>
-
-                        <UserMenu />
+                        
+                        <Stack spacing={3} direction='row' alignItems='center'>
+                            {!user && <Button
+                                variant='contained'
+                                onClick={() => dispatch(setAuthModelOpen(true))}
+                            >
+                                sign in
+                                </Button>}
+                        </Stack>
+                        {user && <UserMenu />}
                     </Toolbar>
                 </AppBar>
             </ScrollAppBar>
