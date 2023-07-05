@@ -9,8 +9,7 @@ const signup = async (req, res) => {
     const checkUser = await userModel.findOne({ username })
 
     if (checkUser)
-      return responseHandler.errorResponse(res, 400, 'Username already exists')
-
+      return responseHandler.badrequest(res, 'username already used')
     const user = new userModel()
     user.username = username
     user.displayName = displayName
@@ -29,8 +28,8 @@ const signup = async (req, res) => {
       ...user._doc,
       id: user.id
     })
-  } catch (error) {
-    return responseHandler.errorResponse(res, 400, error)
+  } catch {
+    responseHandler.error(res)
   }
 }
 
@@ -42,10 +41,10 @@ const signin = async (req, res) => {
       .findOne({ username })
       .select('username password salt id displayName')
 
-    if (!user) return responseHandler.badRequest(res, 400, 'User not found')
+    if (!user) return responseHandler.badRequest(res, 'User not found')
 
     if (!user.validatePassword(password))
-      return responseHandler.badRequest(res, 400, 'Invalid password')
+      return responseHandler.badRequest(res, 'Invalid password')
 
     const token = jsonwebtoken.sign(
       { data: user.id },
@@ -62,7 +61,7 @@ const signin = async (req, res) => {
       id: user.id
     })
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
@@ -74,18 +73,18 @@ const updatePassword = async (req, res) => {
       .findById(req.user.id)
       .select('password id salt')
 
-    if (!user) return responseHandler.badRequest(res, 400, 'User not found')
+    if (!user) return responseHandler.unauthorizedRequest(res)
 
-    if (!user.validatePassword(password))
-      return responseHandler.badRequest(res, 400, 'Invalid password')
+    if (!user.validPassword(password))
+      return responseHandler.badRequest(res, 'Invalid password')
 
     user.setPassword(newPassword)
 
     await user.save()
 
-    responseHandler.okRequest(res, 'Password updated')
+    responseHandler.okRequest(res)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
@@ -93,11 +92,11 @@ const getInfo = async (req, res) => {
   try {
     const user = await userModel.findById(req.user.id)
 
-    if (!user) return responseHandler.notFoundRequest(res, 'User not found')
+    if (!user) return responseHandler.notFoundRequest(res)
 
     responseHandler.okRequest(res, user)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 

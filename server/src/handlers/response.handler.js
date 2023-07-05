@@ -8,34 +8,26 @@ const error = (res) =>
     message: 'Sorry! There seems to be an error!'
   })
 
-const badRequest = (res) =>
+const badRequest = (res, message) =>
   responseData(res, 400, {
     status: 400,
-    message: 'Bad Request'
+    message
   })
 
-const okRequest = (res, data) =>
-  responseData(res, 200, {
-    status: 200,
-    data
-  })
+const okRequest = (res, data) => responseData(res, 200, data)
 
-const createdRequest = (res, data) =>
-  responseData(res, 201, {
-    status: 201,
-    data
-  })
+const createdRequest = (res, data) => responseData(res, 201, data)
 
 const unauthorizedRequest = (res) =>
   responseData(res, 401, {
     status: 401,
-    message: 'Unauthorized'
+    message: 'Unathorized'
   })
 
 const notFoundRequest = (res) =>
   responseData(res, 404, {
     status: 404,
-    message: 'Sorry! The resource you are looking for is not found!'
+    message: 'Resource not found'
   })
 
 export default {

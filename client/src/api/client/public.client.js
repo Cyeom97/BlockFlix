@@ -1,11 +1,13 @@
 import axios from 'axios'
 import queryString from 'query-string'
 
-const baseURL = '127.0.0.1:3001/api/v1/'
+const baseURL = 'http://127.0.0.1:3001/api/v1/'
 
 const publicClient = axios.create({
   baseURL,
-  paramsSerializer: { encode: (params) => queryString.stringify(params) }
+  paramsSerializer: {
+    encode: (params) => queryString.stringify(params)
+  }
 })
 
 publicClient.interceptors.request.use(async (config) => {
@@ -22,8 +24,8 @@ publicClient.interceptors.response.use(
     if (response && response.data) return response.data
     return response
   },
-  (error) => {
-    throw error.response.data
+  (err) => {
+    throw err.response.data
   }
 )
 
