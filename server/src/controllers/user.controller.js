@@ -41,10 +41,10 @@ const signin = async (req, res) => {
       .findOne({ username })
       .select('username password salt id displayName')
 
-    if (!user) return responseHandler.badRequest(res, 'User not found')
+    if (!user) return responseHandler.badRequest(res, 'User not exist')
 
-    if (!user.validatePassword(password))
-      return responseHandler.badRequest(res, 'Invalid password')
+    if (!user.validPassword(password))
+      return responseHandler.badRequest(res, 'Wrong password')
 
     const token = jsonwebtoken.sign(
       { data: user.id },
