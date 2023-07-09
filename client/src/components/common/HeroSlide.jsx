@@ -27,33 +27,33 @@ const HeroSlide = ({ mediaType, mediaCategory }) => {
 
     useEffect(() => {
         const getMedias = async () => {
-          const { response, err } = await mediaApi.getList({
-            mediaType,
-            mediaCategory,
-            page: 1
-          });
-    
-          if (response) setMovies(response.results);
-          if (err) toast.error(err.message);
-          dispatch(setGlobalLoading(false));
+            const { response, err } = await mediaApi.getList({
+                mediaType,
+                mediaCategory,
+                page: 1
+            });
+
+            if (response) setMovies(response.results);
+            if (err) toast.error(err.message);
+            dispatch(setGlobalLoading(false));
         };
-    
+
         const getGenres = async () => {
-          dispatch(setGlobalLoading(true));
-          const { response, err } = await genreApi.getList({ mediaType });
-    
-          if (response) {
-            setGenres(response.genres);
-            getMedias();
-          }
-          if (err) {
-            toast.error(err.message);
-            setGlobalLoading(false);
-          }
+            dispatch(setGlobalLoading(true));
+            const { response, err } = await genreApi.getList({ mediaType });
+
+            if (response) {
+                setGenres(response.genres);
+                getMedias();
+            }
+            if (err) {
+                toast.error(err.message);
+                setGlobalLoading(false);
+            }
         };
-    
+
         getGenres();
-      }, [mediaType, mediaCategory, dispatch]);
+    }, [mediaType, mediaCategory, dispatch]);
     return (
         <Box sx={{
             position: 'relative',
@@ -70,7 +70,7 @@ const HeroSlide = ({ mediaType, mediaCategory }) => {
                 ...uiConfigs.style.gradientBgImage[theme.palette.mode]
             }
         }}>
-            <Swiper 
+            <Swiper
                 grabCursor={true}
                 loop={true}
                 modules={[Autoplay]}
