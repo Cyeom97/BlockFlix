@@ -12,9 +12,9 @@ const getList = async (req, res) => {
 
     const response = await tmdbApi.mediaList({ mediaType, mediaCategory, page })
 
-    return responseHandler.successResponse(res, response)
-  } catch (error) {
-    return responseHandler.errorResponse(res, 400, error)
+    return responseHandler.okRequest(res, response)
+  } catch {
+    responseHandler.error(res)
   }
 }
 
@@ -24,9 +24,9 @@ const getGenres = async (req, res) => {
 
     const response = await tmdbApi.mediaGenres({ mediaType })
 
-    return responseHandler.successResponse(res, response)
-  } catch (error) {
-    return responseHandler.errorResponse(res, 400, error)
+    return responseHandler.okRequest(res, response)
+  } catch {
+    responseHandler.badRequest(res)
   }
 }
 
@@ -41,9 +41,9 @@ const search = async (req, res) => {
       mediaType: mediaType === 'people' ? 'person' : mediaType
     })
 
-    responseHandler.successResponse(res, response)
+    responseHandler.okRequest(res, response)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
@@ -53,7 +53,7 @@ const getDetails = async (req, res) => {
 
     const params = { mediaType, mediaId }
 
-    const media = await tmdbApi.mediaDetails({ ...params })
+    const media = await tmdbApi.mediaDetail({ ...params })
 
     media.credits = await tmdbApi.mediaCredits({ ...params })
 
@@ -61,7 +61,7 @@ const getDetails = async (req, res) => {
 
     media.videos = videos
 
-    const recommendations = await tmdbApi.mediaRecommendations({ ...params })
+    const recommendations = await tmdbApi.mediaRecommend({ ...params })
 
     media.recommendations = recommendations.results
 
@@ -86,9 +86,9 @@ const getDetails = async (req, res) => {
       .populate('user')
       .sort('-createdAt')
 
-    responseHandler.successResponse(res, media)
-  } catch (error) {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.okRequest(res, media)
+  } catch {
+    responseHandler.error(res)
   }
 }
 
