@@ -51,7 +51,7 @@ const routes = [
                 <FavoriteList />
             </ProtectedPage>
         ),
-        state: 'favorite'
+        state: 'favorites'
     },
     {
         path: '/reviews',
