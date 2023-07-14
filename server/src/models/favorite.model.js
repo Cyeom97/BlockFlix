@@ -27,7 +27,7 @@ export default mongoose.model(
         type: String,
         required: true
       },
-      mediaRating: {
+      mediaRate: {
         type: Number,
         required: true
       }
