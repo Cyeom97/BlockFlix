@@ -75,7 +75,7 @@ const MediaDetail = () => {
           mediaTitle: media.title || media.name,
           mediaType: mediaType,
           mediaPoster: media.poster_path,
-          mediaRate: media.vote_average
+          mediaRating: media.vote_average
         };
     
         const { response, err } = await favoriteApi.add(body);
