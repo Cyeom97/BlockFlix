@@ -23,6 +23,7 @@ import { setAuthModalOpen } from '../redux/features/authModalSlice';
 import { addFavorite, removeFavorite } from '../redux/features/userSlice';
 
 import CastSlide from '../components/common/CastSlide';
+import MediaVideosSlide from '../components/common/MediaVideosSlide';
 
 const MediaDetail = () => {
     const { mediaType, mediaId } = useParams();
@@ -193,6 +194,11 @@ const MediaDetail = () => {
                             </Box>
                         </Box>
                     </Box>
+                    <div ref={videoRef} style={{ paddingTop: '2rem'}}>
+                        <Container header='Videos'>
+                            <MediaVideosSlide videos={media.videos.results.splice(0, 5)}/>
+                        </Container>
+                    </div>
                 </Box>
             </>
         ) : null
