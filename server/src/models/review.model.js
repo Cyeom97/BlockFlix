@@ -20,7 +20,7 @@ export default mongoose.model(
         required: true
       },
       mediaId: {
-        type: Number,
+        type: String,
         required: true
       },
       mediaTitle: {

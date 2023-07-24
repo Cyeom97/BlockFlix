@@ -1,6 +1,6 @@
-import privateClient from '../client/privateClient'
+import privateClient from '../client/private.client'
 
-const reviewEndpoint = {
+const reviewEndpoints = {
   list: 'reviews',
   add: 'reviews',
   remove: ({ reviewId }) => `reviews/${reviewId}`
@@ -9,34 +9,37 @@ const reviewEndpoint = {
 const reviewApi = {
   add: async ({ mediaId, mediaType, mediaTitle, mediaPoster, content }) => {
     try {
-      const response = await privateClient.post(reviewEndpoint.add, {
+      const response = await privateClient.post(reviewEndpoints.add, {
         mediaId,
         mediaType,
         mediaTitle,
         mediaPoster,
         content
       })
+
       return { response }
-    } catch (error) {
-      return { error }
+    } catch (err) {
+      return { err }
     }
   },
   remove: async ({ reviewId }) => {
     try {
       const response = await privateClient.delete(
-        reviewEndpoint.remove({ reviewId })
+        reviewEndpoints.remove({ reviewId })
       )
+
       return { response }
-    } catch (error) {
-      return { error }
+    } catch (err) {
+      return { err }
     }
   },
   getList: async () => {
     try {
-      const response = await privateClient.get(reviewEndpoint.list)
+      const response = await privateClient.get(reviewEndpoints.list)
+
       return { response }
-    } catch (error) {
-      return { error }
+    } catch (err) {
+      return { err }
     }
   }
 }

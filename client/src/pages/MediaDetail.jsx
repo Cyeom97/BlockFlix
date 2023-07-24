@@ -28,6 +28,7 @@ import BackdropSlide from '../components/common/BackdropSlide';
 import PosterSlide from '../components/common/PosterSlide';
 import RecommendSlide from '../components/common/RecommendSlide';
 import MediaSlide from '../components/common/MediaSlide'
+import MediaReview from '../components/common/MediaReview';
 
 const MediaDetail = () => {
     const { mediaType, mediaId } = useParams();
@@ -200,7 +201,7 @@ const MediaDetail = () => {
                     </Box>
                     <div ref={videoRef} style={{ paddingTop: '2rem'}}>
                         <Container header='Videos'>
-                            <MediaVideosSlide videos={media.videos.results.splice(0, 5)}/>
+                            <MediaVideosSlide videos={[...media.videos.results].splice(0, 5)}/>
                         </Container>
                     </div>
 
@@ -214,6 +215,8 @@ const MediaDetail = () => {
                             <PosterSlide posters={media.images.posters}/>
                         </Container>
                     )}
+
+                    <MediaReview  reviews={media.reviews} media={media} mediaType={mediaType}/>
 
                     <Container header='you may also like'>
                     {media.recommendations.length > 0 && (

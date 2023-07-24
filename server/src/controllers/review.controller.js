@@ -1,25 +1,25 @@
 import responseHandler from '../handlers/response.handler.js'
-import reviewModels from '../models/review.model.js'
+import reviewModel from '../models/review.model.js'
 
 const create = async (req, res) => {
   try {
     const { movieId } = req.params
 
-    const review = new reviewModels({
-      ...req.body,
+    const review = new reviewModel({
+      user: req.user.id,
       movieId,
-      user: req.user.id
+      ...req.body
     })
 
     await review.save()
 
-    responseHandler.created(res, {
+    responseHandler.createdRequest(res, {
       ...review._doc,
-      user: req.user,
-      id: review.id
+      id: review.id,
+      user: req.user
     })
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
@@ -27,33 +27,33 @@ const remove = async (req, res) => {
   try {
     const { reviewId } = req.params
 
-    const review = await reviewModels.findOne({
-      user: req.user.id,
-      _id: reviewId
+    const review = await reviewModel.findOne({
+      _id: reviewId,
+      user: req.user.id
     })
 
-    if (!review) return responseHandler.notFound(res, 'Review not found')
+    if (!review) return responseHandler.notFoundRequest(res)
 
     await review.remove()
-    responseHandler.okRequest(res, review)
+
+    responseHandler.okRequest(res)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
 const getReviewsOfUser = async (req, res) => {
   try {
-    const review = await reviewModels
-      .find({ user: req.user.id })
+    const reviews = await reviewModel
+      .find({
+        user: req.user.id
+      })
       .sort('-createdAt')
-    responseHandler.okRequest(res, review)
+
+    responseHandler.okRequest(res, reviews)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
-export default {
-  create,
-  remove,
-  getReviewsOfUser
-}
+export default { create, remove, getReviewsOfUser }
