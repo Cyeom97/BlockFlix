@@ -32,6 +32,7 @@ const MediaList = () => {
 
     useEffect(() => {
         dispatch(setAppState(mediaType))
+        window.scrollTo(0,0)
     }, [mediaType, dispatch])
 
     useEffect(() => {
