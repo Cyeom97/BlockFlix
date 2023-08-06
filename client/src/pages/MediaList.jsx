@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import tmdbConfigs from '../api/configs/tmdb.configs';
 import mediaApi from '../api/modules/media.api';
 import uiConfigs from '../configs/ui.config';
-import usePrevious from '../hooks/usePrevious';
 import HeroSlide from '../components/common/HeroSlide';
 import MediaGrid from '../components/common/MediaGrid';
 import { setAppState } from '../redux/features/appStateSlice';
@@ -23,7 +22,6 @@ const MediaList = () => {
     const [mediaLoading, setMediaLoading] = useState(false);
     const [currCategory, setCurrCategory] = useState(0);
     const [currPage, setCurrPage] = useState(1);
-    const prevMediaType = usePrevious(mediaType);
 
     const dispatch = useDispatch();
 
@@ -56,18 +54,13 @@ const MediaList = () => {
             }
         }
 
-        if (mediaType !== prevMediaType) {
-            setCurrPage(1)
-            setCurrCategory(0)
-            window.scrollTo(0,0)
-        }
+ 
 
         getMedias()
     }, [
         mediaType,
         currCategory,
         currPage,
-        prevMediaType,
         mediaCategories,
         dispatch
     ])
