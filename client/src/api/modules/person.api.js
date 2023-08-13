@@ -11,9 +11,10 @@ const personApi = {
       const response = await publicClient.get(
         personEndpoints.detail({ personId })
       )
+
       return { response }
-    } catch (error) {
-      return { error }
+    } catch (err) {
+      return { err }
     }
   },
   medias: async ({ personId }) => {
@@ -21,9 +22,10 @@ const personApi = {
       const response = await publicClient.get(
         personEndpoints.medias({ personId })
       )
+
       return { response }
-    } catch (error) {
-      return { error }
+    } catch (err) {
+      return { err }
     }
   }
 }

@@ -5,19 +5,19 @@ const personDetail = async (req, res) => {
   try {
     const { personId } = req.params
     const person = await tmdbApi.personDetail({ personId })
-    responseHandler.okRequest(res, person.data)
+    responseHandler.okRequest(res, person)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
 const personMedias = async (req, res) => {
   try {
     const { personId } = req.params
-    const person = await tmdbApi.personMedias({ personId })
-    responseHandler.okRequest(res, person.data)
+    const medias = await tmdbApi.personMedias({ personId })
+    responseHandler.okRequest(res, medias)
   } catch {
-    responseHandler.errorResponse(res, 400, error)
+    responseHandler.error(res)
   }
 }
 
